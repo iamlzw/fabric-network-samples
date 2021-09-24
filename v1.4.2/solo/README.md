@@ -4,7 +4,7 @@ fabric v1.4.2示例网络,solo共识版本
 
 ```bash
 $ cd ANY PATH
-$ git clone 
+$ git clone https://github.com/iamlzw/fabric-network-samples.git
 ```
 ### 2、copy chaincode to GOPATH
 ```bash
@@ -32,5 +32,10 @@ this step include
 $ pwd
 /home/www/go/src/github.com/hyperledger/fabric-samples/fabric-network-samples/v1.4.2/solo
 $ ./init.sh /home/www/go/src/github.com/hyperledger/fabric-samples/fabric-network-samples/v1.4.2/solo
+```
+
+### 5、stop and clean network
+```bash
+$ ./stop.sh
 ```
 
