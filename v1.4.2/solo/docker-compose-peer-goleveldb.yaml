@@ -4,21 +4,21 @@ volumes:
   peer0.org1.example.com:
   peer0.org2.example.com:
 
-#networks:
-#  byfn:
+networks:
+  byfn:
 services:
   peer0.org1.example.com:
     container_name: peer0.org1.example.com
     image: hyperledger/fabric-peer:1.4.2
     environment:
-      #- CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_VM_ENDPOINT=http://192.168.126.129:2375
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      #- CORE_VM_ENDPOINT=http://192.168.126.129:2375
       # the following setting starts chaincode containers on the same
       # bridge network as the peers
       # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=host
-      #- FABRIC_LOGGING_SPEC=INFO
-      - FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=net_byfn
+      - FABRIC_LOGGING_SPEC=INFO
+      #- FABRIC_LOGGING_SPEC=DEBUG
      # - CORE_PEER_ADDRESSAUTODETECT=true
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
@@ -50,21 +50,21 @@ services:
       - 9443:9443
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
-    network_mode: "host"
-#    networks:
- #     - byfn
+   # network_mode: "host"
+    networks:
+      - byfn
   peer0.org2.example.com:
     container_name: peer0.org2.example.com
     image: hyperledger/fabric-peer:1.4.2
     environment:
-      #- CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
-      - CORE_VM_ENDPOINT=http://192.168.126.129:2375
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      #- CORE_VM_ENDPOINT=http://192.168.126.129:2375
       # the following setting starts chaincode containers on the same
       # bridge network as the peers
       # https://docs.docker.com/compose/networking/
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=host
-      #- FABRIC_LOGGING_SPEC=INFO
-      - FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=net_byfn
+      - FABRIC_LOGGING_SPEC=INFO
+      #- FABRIC_LOGGING_SPEC=DEBUG
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
       - CORE_PEER_GOSSIP_ORGLEADER=false
@@ -94,6 +94,6 @@ services:
       - 11443:11443
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
-    network_mode: "host"
-  #  networks:
-   #   - byfn
+#    network_mode: "host"
+    networks:
+      - byfn
